@@ -6,13 +6,13 @@
 /*   By: hang <hang@student.42kl.edu.my>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/24 16:47:37 by hang              #+#    #+#             */
-/*   Updated: 2023/12/27 21:41:11 by hang             ###   ########.fr       */
+/*   Updated: 2023/12/28 22:23:39 by hang             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../ft_printf.h"
 
-static void	datatype(va_list *args, char input, int *length, int *i)
+static void	datatype(va_list *args, char input, int *length)
 {
 	if (input == 'c')
 		printfputchar(va_arg(*args, int), length);
@@ -30,8 +30,6 @@ static void	datatype(va_list *args, char input, int *length, int *i)
 		printfinteger(va_arg(*args, unsigned int), length);
 	else if (input == 'd' || input == 'i')
 		printfinteger(va_arg(*args, int), length);
-	else
-		(*i)--;
 }
 
 int	ft_printf(const char *str, ...)
@@ -46,7 +44,7 @@ int	ft_printf(const char *str, ...)
 	while (str[i])
 	{
 		if (str[i] == '%')
-			datatype(&args, str[++i], &length, &i);
+			datatype(&args, str[++i], &length);
 		else
 			printfputchar(str[i], &length);
 		i++;
